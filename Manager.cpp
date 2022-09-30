@@ -1,83 +1,63 @@
-#pragma warning(disable:4996)
-#include"one.h"
-using namespace std;
-
+#pragma warning(disable : 4996)
+#include "Manager.h"
 Manager::~Manager()
 {
     if (fin.is_open())
         fin.close();
-
 }
 
-void Manager::Run(const char* filepath)
+void Manager::Run(const char *filepath)
 {
+    
     fin.open(filepath);
     if (!fin)
     {
-        fout << "File open error" << endl;
+        cout << "File open error" << endl;
         return;
     }
     char cmd[32];
     while (!fin.eof())
     {
         fin.getline(cmd, 100);
-        char* command = strtok(cmd, " ");
+        char *command = strtok(cmd, " ");
         if (command == NULL)
             continue;
-
-        if (strcmp(command, "LOAD") == 0) {
-            fout << "=======LOAD=======" << endl;
-            Loaded_List* list= new Loaded_List;
-            string num, name;
-            fread.open("filenumbers.csv", ios::in);
-            while (!fread.eof()) {
-                getline(fread, num, ',');
-                getline(fread, name, '\n');
-
-                cout << name << "/" << num << endl;
-                make_list( name, num);
-            }
-            fread.close();
+        if (strcmp(command, "LOAD") == 0)
+        {
+            cout << "=======LOAD=======" << endl;
+            Loaded_List *list= new Loaded_List;
+            Load(filepath, list);
+            
             cout << "===================" << endl;
         }
+        
     }
 }
 
-
-void Manager::make_list(string name,string num)
-{
-    
-    Loaded_List_Node * newNode  = new Loaded_List_Node;
-    newNode->name = name;
-    newNode->num = num;
-
-    if (List_head->Node== NULL) {
-        List_head->Node = newNode;
-        return;
-    }
-    if (List_head->Node->next == NULL) {
-        List_head->Node->next = newNode;
-        newNode->prev = List_head->Node;
-    }
-    while (1) {
-        if (List_head->Node->next == NULL)
-            break;
-        List_head->Node = List_head->Node->next;
-    }
-    List_head->Node->next = newNode;
-    newNode->prev = List_head->Node;
+void Manager::PrintError(Result result){
+    cout<<result<<endl;
     return;
 }
 
-
-int main(int argc, char* argv[])
+Result Manager::Load(const char *filepath, Loaded_List *Load_list)
 {
-    const char* commandFilepath = "command.txt";
-    if (argc > 1)
-        commandFilepath = argv[1];
-
-    Manager m;
-    m.Run(commandFilepath);
-
-    return 0;
+    string filename = "img_files";
+    string num, name,temp;
+    fread.open("./img_files/filesnumbers.csv", ios::in);
+    if(fread.fail()){
+        cout<<"=======ERROR======="<<endl;
+        PrintError(LoadError);
+    }
+    while (!fread.eof())
+    {
+        nodecount++;
+        getline(fread, num, ',');
+        getline(fread, name, '.');
+        getline(fread, temp, '\n');
+        cout << name << "/" << num << endl;
+        Load_list->make_list(name,filename,num);
+        
+    }
+    fread.close();
+    return( Success);
 }

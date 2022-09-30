@@ -4,7 +4,17 @@
 using namespace std;
 
 #pragma once
-class ImageNode
+class Loaded_List_Node
+{
+public:
+    string num; // files number
+    string name; // files name
+    string filename;
+    Loaded_List_Node* next = NULL;
+    Loaded_List_Node* prev = NULL;
+};
+
+/*class ImageNode   
 {
 	friend class TreeNode;
 	friend class BinarySearchTree;
@@ -29,13 +39,5 @@ public:
 		os << "(node.m_name: " << node.m_name << "), "; //Debug with print
 		return os;
 	}
-};
+};*/
 
-class Loaded_List_Node
-{
-public:
-    string num; // files number
-    string name; // files name
-    Loaded_List_Node* next = NULL;
-    Loaded_List_Node* prev = NULL;
-};
