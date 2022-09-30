@@ -4,12 +4,14 @@
 enum Result
 {
     Success = 0,
-
     LoadError = 100,
-    ADDError = 200,
-    
-
-    NonDefinedCommand = 300,
+    AddError = 200,
+    ModifyError = 300,
+    MoveError = 400,
+    PrintError = 500,
+    SearchError = 600,
+    SelectError = 700,
+    EditError = 800,
+    CommandError = 777,
 };
-
 #endif
