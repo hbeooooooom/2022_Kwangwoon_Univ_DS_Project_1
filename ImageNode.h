@@ -12,6 +12,7 @@ public:
     string filename;
     Loaded_List_Node* next = NULL;
     Loaded_List_Node* prev = NULL;
+	Loaded_List_Node* down = NULL;
 };
 
 /*class ImageNode   
