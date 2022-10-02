@@ -13,6 +13,8 @@ public:
     Loaded_List_Node* next = NULL;
     Loaded_List_Node* prev = NULL;
 	Loaded_List_Node* down = NULL;
+	Loaded_List_Node* up = NULL;
+	
 };
 
 /*class ImageNode   

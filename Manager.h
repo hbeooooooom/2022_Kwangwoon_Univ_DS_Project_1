@@ -17,11 +17,12 @@ public:
     std::ifstream fread;
     std::ifstream fin;
     int nodecount = 0;
-
+    
     void PrintError(Result result);
     void Run(const char* filepath);
     
 private:
     Result Load(const char* filepath,Loaded_List* Load_list);
-    Result ADD(const char* filepath,Loaded_List* Load_list);
+    Result ADD(const char* filepath,Loaded_List* Load_list,string dir,string path);
+    void print(Loaded_List* Load_list);
 };
