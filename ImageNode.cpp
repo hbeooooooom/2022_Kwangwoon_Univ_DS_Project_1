@@ -2,6 +2,46 @@
 #include"Queue.h"
 #include<iostream>
 using namespace std;
+
+Result Loaded_List::modify_list(string name,string filename,string num){
+   Loaded_List_Node* currNode=head;
+   Loaded_List_Node* temp;
+   Loaded_List_Node* newNode = new Loaded_List_Node;
+    newNode->name=name;
+    newNode->num=num;
+    newNode->filename=filename;
+    while(1){//check filename node
+        if(currNode->filename==filename)
+            break;
+        
+        currNode=currNode->down;
+
+        if(currNode==NULL)
+            return ModifyError;
+    }
+    
+    while(1){
+        if(currNode->name==name){
+            break;
+        }
+        currNode = currNode->next;
+        if(currNode==NULL)
+            return ModifyError;
+    }
+    if(currNode->next!=NULL){
+        
+        newNode->next = currNode->next;
+    }
+    temp=currNode;
+    currNode = currNode->prev;
+    currNode->next=newNode;
+    newNode->prev=currNode;
+
+    delete temp;
+    return Success;
+
+}
+
 void Loaded_List::make_list(string name, string filename,string num){
     
     Loaded_List_Node* currNode=head;
@@ -47,46 +87,22 @@ void Loaded_List::printnode(){
     }
     
 }
-/*void Loaded_List::make_first_node(string filename){
-    Loaded_List_Node* currNode=head;
-    Loaded_List_Node* newNode= new Loaded_List_Node;
 
-    newNode->filename = filename;
-    if(head==NULL){
-        head=newNode;
-    }
-    else if(head->down==NULL){
-        head->down=newNode;
-        newNode->up=head;
-    }
-    while(1){
-        if(currNode->down==NULL){break;}
-        currNode=currNode->down;
-    }
-    currNode->down=newNode;
-    newNode->up=currNode;
-    return;
-}
-
-bool Loaded_List::add_chek_up(){
-    Loaded_List_Node* currNode=head;
-    if(currNode->up==NULL){
-        return false;
-    }
-    else
-    return true;
-}*/
-void Loaded_List::add_list(string name, string dir, string num){
+Result Loaded_List::add_list(string name, string dir, string num){
     Loaded_List_Node* currNode = head;
     Loaded_List_Node* newNode = new Loaded_List_Node;
 
     newNode->filename=dir;
     newNode->name = name;
     newNode->num = num;
+    if(head==NULL){
+        return AddError;
+    }
+
     if(currNode->down==NULL){//첫번째 노드 삭제하고 테스트
         currNode->down=newNode;
         newNode->up=currNode;
-        return;
+        return Success;
     }
 
     currNode=currNode->down;
@@ -95,7 +111,7 @@ void Loaded_List::add_list(string name, string dir, string num){
         if(currNode->next==NULL){
             currNode->next=newNode;
             newNode->prev = currNode;
-            return; 
+            return Success; 
         }
         while(1){
             currNode=currNode->next;
@@ -104,7 +120,7 @@ void Loaded_List::add_list(string name, string dir, string num){
         }
         currNode->next=newNode;
         newNode->prev=currNode;
-        return;
+        return Success;
     }
 
     while(1){
@@ -117,7 +133,7 @@ void Loaded_List::add_list(string name, string dir, string num){
     {
         currNode->next=newNode;
         newNode->prev = currNode;
-        return; 
+        return Success; 
     }
 
     while(1){
@@ -128,7 +144,5 @@ void Loaded_List::add_list(string name, string dir, string num){
     }
         currNode->next=newNode;
         newNode->prev = currNode;
-        return;
-
-
+        return Success;
 }
