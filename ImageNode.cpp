@@ -3,6 +3,27 @@
 #include<iostream>
 using namespace std;
 
+void Loaded_List::pop_head(){
+    Loaded_List_Node* currNode=head;
+    Loaded_List_Node* temp;
+    if(head->next==NULL){
+        temp=currNode;
+        head=head->down;
+        delete temp;
+        return;
+    }
+    else
+    {
+        temp=currNode->down;
+        head = currNode->next;
+        head->down=temp;
+        temp->up=head;
+        delete currNode;
+        return;
+   }
+    
+}
+
 Result Loaded_List::modify_list(string name,string filename,string num){
    Loaded_List_Node* currNode=head;
    Loaded_List_Node* temp;
@@ -76,14 +97,15 @@ void Loaded_List::printnode(){
     Loaded_List_Node* currNode=head;
     Loaded_List_Node* temp=head;
     while(1){
-        cout<<currNode->num<<endl;
-        currNode=currNode->next;
         if(currNode==NULL){
-            if(temp->down==NULL)
+            if(temp->down==NULL){
             break;
+            }
             currNode=temp->down;
             temp=temp->down;
         }
+        cout<<currNode->filename<<" "<<currNode->name<<"/"<<currNode->num<<endl;
+        currNode=currNode->next;
     }
     
 }
@@ -98,14 +120,59 @@ Result Loaded_List::add_list(string name, string dir, string num){
     if(head==NULL){
         return AddError;
     }
+    if(head->filename==newNode->filename){
+        if(head->next==NULL){
+            head->next=newNode;
+            newNode->prev=head;
+            return Success;
+        }
+        else{
+            while(1){
+                if(currNode->next==NULL)
+                    break;
 
-    if(currNode->down==NULL){//첫번째 노드 삭제하고 테스트
-        currNode->down=newNode;
-        newNode->up=currNode;
-        return Success;
+                currNode=currNode->next;
+            }
+            currNode->next=newNode;
+            newNode->prev=currNode;
+            return Success;
+        }
     }
 
-    currNode=currNode->down;
+    while(1){
+        if(currNode->filename==dir){
+            break;
+        }
+        if(currNode->down==NULL){
+            currNode->down=newNode;
+            newNode->up=currNode;
+            return Success;
+        }
+        currNode=currNode->down;
+        
+    }
+
+
+   
+        if(currNode->next==NULL){
+            currNode->next=newNode;
+            newNode->prev = currNode;
+            return Success; 
+        }
+        while(1){
+            if(currNode->next==NULL)
+            break;
+            currNode=currNode->next;
+            
+        }
+        currNode->next=newNode;
+        newNode->prev=currNode;
+        return Success;
+    
+    return AddError;
+}
+   
+   /* currNode=currNode->down;
 
     if(currNode->filename==dir){
         if(currNode->next==NULL){
@@ -121,12 +188,17 @@ Result Loaded_List::add_list(string name, string dir, string num){
         currNode->next=newNode;
         newNode->prev=currNode;
         return Success;
-    }
-
+    }*/
+/*
     while(1){
-        currNode=currNode->down;
         if(currNode->filename==dir)
         break;
+
+        if(currNode->down==NULL){
+            currNode->down=newNode;
+            return Success;
+        }
+        currNode=currNode->down;
     }
 
     if(currNode->next==NULL)
@@ -137,12 +209,12 @@ Result Loaded_List::add_list(string name, string dir, string num){
     }
 
     while(1){
-        currNode=currNode->next;
         if(currNode->next==NULL){
             break;
         }
+        currNode=currNode->next;
     }
         currNode->next=newNode;
         newNode->prev = currNode;
         return Success;
-}
+}*/

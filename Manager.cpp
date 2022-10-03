@@ -26,18 +26,15 @@ void Manager::Run(const char *filepath)
             continue;
         if (strcmp(command, "LOAD") == 0)
         {
-            
-            
             result = Load(filepath, list);
             if(result!=0){
                 PrintError(result);
             }
-            
+            list->printnode();
             cout << "===================" << endl;
         }
         else if(strcmp(command, "ADD")==0)
         {
-            
             command = strtok(NULL," ");
             string dir = command;
             command = strtok(NULL,"\n");
@@ -71,6 +68,10 @@ void Manager::Run(const char *filepath)
                 PrintError(result);
             cout<<"=================="<<endl;
         }
+        else if(strcmp(command,"MOVE")==0){
+            
+        }
+        
     }
     print(list);
 }
@@ -93,16 +94,19 @@ Result Manager::ADD(const char* filepath,Loaded_List* Load_list,string dir,strin
         return AddError;
     }
     string num, name,temp;
-    while(!fread.fail()){
+    while(!fread.eof()){
         nodecount++;
         getline(fread, num, ',');
         getline(fread, name, '.');
         getline(fread, temp, '\n'); 
-        //cout << name << "/" << num << endl;// 이건 나중에 지우기
+        if(nodecount>=101){
+            Load_list->pop_head();
+        }
         result = Load_list->add_list(name,dir,num);
         if(result!=0){
             return result;
         }
+       
     }
     return(Success);
 }
@@ -127,8 +131,8 @@ Result Manager::Load(const char *filepath, Loaded_List *Load_list)
         getline(fread, num, ',');
         getline(fread, name, '.');
         getline(fread, temp, '\n');
-        cout << name << "/" << num << endl;
-        //stringstream ssInt(num);
+        if(nodecount>=101)
+            Load_list->pop_head();
         Load_list->make_list(name,filename,num);
         
     }

@@ -13,6 +13,7 @@ class Loaded_List{
      public:
  
     void make_list(string name, string filename, string num);//make linked list
+    void pop_head();
     Result add_list(string name, string filename, string num);
     Result modify_list(string name,string filename,string num);
     void printnode();
