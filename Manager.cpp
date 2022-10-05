@@ -111,6 +111,9 @@ Result Manager::MOVE(const char*filepath, Loaded_List* Load_list, Database_BST* 
         string name = Load_list->get_name();
         string filename = Load_list->get_filename();
         string num = Load_list->get_num();
+        if(tree_nodecount>=300){
+           BST_list-> delete_treenode();
+        }
         Load_list->delete_node(); //end node delete
         BST_list->make_BST(name,filename,num);
          a = Load_list->head_check();

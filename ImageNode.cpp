@@ -43,7 +43,7 @@ string Loaded_List::get_filename(){//head is already end node
     return currNode->filename;
 }
 void Loaded_List::delete_head(){
-    head=NULL;
+    delete head;
 }
 string Loaded_List::get_num(){
      Loaded_List_Node* currNode=head;
@@ -217,9 +217,6 @@ Result Loaded_List::add_list(string name, string dir, string num){
         currNode=currNode->down;
         
     }
-
-
-   
         if(currNode->next==NULL){
             currNode->next=newNode;
             newNode->prev = currNode;
