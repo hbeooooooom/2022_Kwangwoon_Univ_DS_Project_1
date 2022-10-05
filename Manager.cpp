@@ -17,6 +17,7 @@ void Manager::Run(const char *filepath)
     }
     char cmd[100];
     Loaded_List *list= new Loaded_List;
+    Database_BST *BST_list = new Database_BST;
     while (!fin.eof())
     {
         
@@ -26,11 +27,13 @@ void Manager::Run(const char *filepath)
             continue;
         if (strcmp(command, "LOAD") == 0)
         {
+            
             result = Load(filepath, list);
             if(result!=0){
                 PrintError(result);
             }
-            list->printnode();
+            else 
+                list->printnode();
             cout << "===================" << endl;
         }
         else if(strcmp(command, "ADD")==0)
@@ -50,6 +53,7 @@ void Manager::Run(const char *filepath)
                 cout<<"SUCCESS"<<endl;
             }
             cout<<"=================="<<endl;
+           
         }
         else if(strcmp(command,"MODIFY")==0){
             
@@ -70,10 +74,57 @@ void Manager::Run(const char *filepath)
         }
         else if(strcmp(command,"MOVE")==0){
             
+            result=MOVE(filepath,list,BST_list,nodecount);
+            if(result==Success){
+                cout<<"=======MOVE======="<<endl;
+                cout<<"SUCCESS"<<endl;
+            }
+            else{
+                PrintError(result);
+            }
+            cout<<"=================="<<endl;
+            nodecount = 0;
+            
+        }
+        else if(strcmp(command,"PRINT")==0){
+            result = PRINT(BST_list);
         }
         
     }
     print(list);
+}
+
+Result Manager::PRINT(Database_BST* BST_list){
+    Result result;
+    result = BST_list->print_bst(BST_list);
+    return result;
+}
+
+Result Manager::MOVE(const char*filepath, Loaded_List* Load_list, Database_BST* BST_list,int nodecount){
+    Result result;
+    if(nodecount>101)
+        nodecount=101;
+    nodecount--;
+    bool a;
+    while(1){
+        tree_nodecount++;
+        string name = Load_list->get_name();
+        string filename = Load_list->get_filename();
+        string num = Load_list->get_num();
+        Load_list->delete_node(); //end node delete
+        BST_list->make_BST(name,filename,num);
+         a = Load_list->head_check();
+        if(a==false){
+            break;
+        }
+    }
+    string name = Load_list->get_name();
+    string filename = Load_list->get_filename();
+    string num = Load_list->get_num();
+    BST_list->make_BST(name,filename,num);
+
+    Load_list->delete_head();
+    return Success;
 }
 
 Result Manager::MODIFY(const char*filepath, Loaded_List* Load_list,string filename,string name,string num ){
@@ -91,11 +142,12 @@ void Manager::PrintError(Result result){
 Result Manager::ADD(const char* filepath,Loaded_List* Load_list,string dir,string add_path){
     fread.open(add_path,ios::in);
     if(fread.fail()){
+        cout<<"파일을 못염"<<endl;
         return AddError;
     }
     string num, name,temp;
     while(!fread.eof()){
-        nodecount++;
+        
         getline(fread, num, ',');
         getline(fread, name, '.');
         getline(fread, temp, '\n'); 
@@ -106,8 +158,9 @@ Result Manager::ADD(const char* filepath,Loaded_List* Load_list,string dir,strin
         if(result!=0){
             return result;
         }
-       
+       nodecount++;
     }
+    fread.close();
     return(Success);
 }
 
@@ -117,24 +170,20 @@ Result Manager::Load(const char *filepath, Loaded_List *Load_list)
 {
     string filename = "img_files";
     string num, name,temp;
-    
     fread.open("./img_files/filesnumbers.csv", ios::in);
     if(fread.fail()){
         return LoadError;
     }
-   
-    //Load_list->make_first_node(filename);
     cout<<"=======LOAD======="<<endl;
     while (!fread.eof())
     {
-        nodecount++;
         getline(fread, num, ',');
         getline(fread, name, '.');
         getline(fread, temp, '\n');
         if(nodecount>=101)
             Load_list->pop_head();
         Load_list->make_list(name,filename,num);
-        
+        nodecount++;
     }
     fread.close();
     return Success;

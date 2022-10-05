@@ -1,27 +1,92 @@
-#include"ImageNode.h"
 #include"Queue.h"
 #include<iostream>
 using namespace std;
 
-void Loaded_List::pop_head(){
+string Loaded_List::get_name(){
     Loaded_List_Node* currNode=head;
-    Loaded_List_Node* temp;
+    while(1){
+        if(currNode->down==NULL)
+        break;
+        currNode=currNode->down;
+    }
+    
+    while(1){
+        if(currNode->next==NULL){
+            break;
+        }
+        currNode=currNode->next;
+    }
+    return currNode->name;
+}
+bool Loaded_List::head_check(){
     if(head->next==NULL){
-        temp=currNode;
-        head=head->down;
-        delete temp;
-        return;
+        if(head->down==NULL){
+            return false;
+        }
+    }
+    return true;
+}
+string Loaded_List::get_filename(){//head is already end node
+    Loaded_List_Node* currNode=head;
+    while(1){
+        if(currNode->down==NULL)
+        break;
+        currNode=currNode->down;
+    }
+    
+    while(1){
+        if(currNode->next==NULL){
+            break;
+        }
+        currNode=currNode->next;
+    }
+    return currNode->filename;
+}
+void Loaded_List::delete_head(){
+    head=NULL;
+}
+string Loaded_List::get_num(){
+     Loaded_List_Node* currNode=head;
+    while(1){
+        if(currNode->down==NULL)
+        break;
+        currNode=currNode->down;
+    }
+    
+    while(1){
+        if(currNode->next==NULL){
+            break;
+        }
+        currNode=currNode->next;
+    }
+    return currNode->num;   
+}
+
+void Loaded_List::delete_node(){
+    Loaded_List_Node* currNode=head;
+    while(1){
+        if(currNode->down==NULL)
+        break;
+        currNode=currNode->down;
+    }
+    
+    while(1){
+        if(currNode->next==NULL){
+            break;
+        }
+        currNode=currNode->next;
+    }
+    if(currNode->prev==NULL){
+        if(currNode->up==NULL){
+            head=NULL;
+            head->next=NULL;
+            return;
+        }
+        currNode->up->down=NULL;
     }
     else
-    {
-        temp=currNode->down;
-        head = currNode->next;
-        head->down=temp;
-        temp->up=head;
-        delete currNode;
-        return;
-   }
-    
+        currNode->prev->next=NULL;
+    delete currNode;
 }
 
 Result Loaded_List::modify_list(string name,string filename,string num){
@@ -52,6 +117,7 @@ Result Loaded_List::modify_list(string name,string filename,string num){
     if(currNode->next!=NULL){
         
         newNode->next = currNode->next;
+        currNode->next->prev=newNode;
     }
     temp=currNode;
     currNode = currNode->prev;
@@ -71,7 +137,7 @@ void Loaded_List::make_list(string name, string filename,string num){
     newNode->name=name;
     newNode->num=num;
     newNode->filename=filename;
-   
+    
     if(head==NULL){
         head=newNode;
         return;
@@ -171,50 +237,24 @@ Result Loaded_List::add_list(string name, string dir, string num){
     
     return AddError;
 }
-   
-   /* currNode=currNode->down;
 
-    if(currNode->filename==dir){
-        if(currNode->next==NULL){
-            currNode->next=newNode;
-            newNode->prev = currNode;
-            return Success; 
-        }
-        while(1){
-            currNode=currNode->next;
-            if(currNode->next==NULL)
-            break;
-        }
-        currNode->next=newNode;
-        newNode->prev=currNode;
-        return Success;
-    }*/
-/*
-    while(1){
-        if(currNode->filename==dir)
-        break;
-
-        if(currNode->down==NULL){
-            currNode->down=newNode;
-            return Success;
-        }
-        currNode=currNode->down;
+void Loaded_List::pop_head(){
+    Loaded_List_Node* currNode=head;
+    Loaded_List_Node* temp;
+    if(head->next==NULL){
+        temp=currNode;
+        head=head->down;
+        delete temp;
+        return;
     }
-
-    if(currNode->next==NULL)
+    else
     {
-        currNode->next=newNode;
-        newNode->prev = currNode;
-        return Success; 
-    }
-
-    while(1){
-        if(currNode->next==NULL){
-            break;
-        }
-        currNode=currNode->next;
-    }
-        currNode->next=newNode;
-        newNode->prev = currNode;
-        return Success;
-}*/
+        temp=currNode->down;
+        head = currNode->next;
+        head->down=temp;
+        temp->up=head;
+        delete currNode;
+        return;
+   }
+    
+}

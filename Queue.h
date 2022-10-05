@@ -9,13 +9,20 @@
 class Loaded_List{
     private:
      Loaded_List_Node* head;
+    
 
      public:
  
     void make_list(string name, string filename, string num);//make linked list
-    void pop_head();
     Result add_list(string name, string filename, string num);
     Result modify_list(string name,string filename,string num);
+    bool head_check();
+    void pop_head();
+    void delete_head();
+    string get_name();
+    string get_filename();
+    string get_num();
+    void delete_node();
     void printnode();
 };
 #endif
