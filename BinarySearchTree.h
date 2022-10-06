@@ -7,6 +7,8 @@ class Database_BST{
         Result make_BST(string name, string filename,string num);
         Result print_bst(Database_BST* bst_list);
         Result inorder(Database_BST_Node* node);
+        void fine_delete_treenode();
         void delete_treenode();
+
     
 };

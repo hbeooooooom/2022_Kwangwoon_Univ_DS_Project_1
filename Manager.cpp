@@ -180,12 +180,14 @@ Result Manager::Load(const char *filepath, Loaded_List *Load_list)
     cout<<"=======LOAD======="<<endl;
     while (!fread.eof())
     {
+    
         getline(fread, num, ',');
         getline(fread, name, '.');
         getline(fread, temp, '\n');
         if(nodecount>=101)
             Load_list->pop_head();
         Load_list->make_list(name,filename,num);
+        
         nodecount++;
     }
     fread.close();

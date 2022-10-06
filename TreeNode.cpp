@@ -1,14 +1,37 @@
 #include"BinarySearchTree.h"
 
+
 void Database_BST::delete_treenode(){
-    Database_BST_Node* currNode=root;
+    Database_BST_Node* currNode = root;
+    Database_BST_Node* upNode;
+    while(1){
+        if(currNode->left==NULL)
+        {
+            break;
+        }
+        upNode=currNode;
+        currNode=currNode->left;
+    }
+    
+    if(currNode->right==NULL)
+    {
+        delete currNode;
+        return;
+    }
+    else if(currNode->right!=NULL)
+    {
+        upNode->left=currNode->right;
+        delete currNode;
+        return;
+    }
 }
 
 Result Database_BST::print_bst(Database_BST* bst_list){
     Result result;
+    
     if(root!=NULL){
         cout<<"========PRINT===================="<<endl;
-        inorder(bst_list->root);
+        inorder(root);
         return Success;
     }
     else if(root==NULL){
@@ -25,6 +48,7 @@ Result Database_BST::inorder(Database_BST_Node* root){
 }
 Result Database_BST::make_BST(string name, string filename,string num){
     Database_BST_Node* currNode = root;
+    Database_BST_Node* up;
     Database_BST_Node* newNode = new Database_BST_Node;
 
     newNode->dir=filename;
@@ -32,6 +56,7 @@ Result Database_BST::make_BST(string name, string filename,string num){
     newNode->num=num;
     if(root==NULL){
         root=newNode;
+       
         return(Success);
     }
     else{
@@ -39,8 +64,10 @@ Result Database_BST::make_BST(string name, string filename,string num){
             if(currNode->num > num){
                 if(currNode->left==NULL){
                     currNode->left=newNode;
+                   
                     return Success;
                 }
+                up=currNode;
                 currNode=currNode->left;
             }
             else if(currNode->num==num){
@@ -49,8 +76,10 @@ Result Database_BST::make_BST(string name, string filename,string num){
             else if(currNode->num < num){
                 if(currNode->right==NULL){
                     currNode->right=newNode;
+          
                     return Success;
                 }
+                up=currNode;
                 currNode=currNode->right;
             }
         }
