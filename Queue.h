@@ -26,7 +26,7 @@ public:
    }
 
    bool Isempty(){
-      return output_num > count_num ? true : false;
+      return output_num >= count_num ? true : false;
    }
    
 };

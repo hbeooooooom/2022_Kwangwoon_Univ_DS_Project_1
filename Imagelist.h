@@ -3,7 +3,7 @@
 
 class Loaded_List{
     private:
-     Loaded_List_Node* head;
+     Loaded_List_Node* head = NULL;
      public:
  
     void make_list(string name, string filename, int num);//make linked list

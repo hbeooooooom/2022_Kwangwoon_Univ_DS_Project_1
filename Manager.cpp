@@ -95,7 +95,6 @@ void Manager::Run(const char *filepath)
         else if(strcmp(command,"SEARCH")==0){
             command =strtok(NULL,"\"");
             string word = command;
-            cout<<word<<endl;
             result = SEARCH(BST_list,word);
             
             cout<<"=================="<<endl;
@@ -107,7 +106,7 @@ void Manager::Run(const char *filepath)
            // result = SELECT(int_num);
         }
     }
-    print(list);
+    
 }
 
 Result Manager::SEARCH(Database_BST* BST_list, string word){
@@ -124,7 +123,6 @@ Result Manager::SEARCH(Database_BST* BST_list, string word){
         output_stack.Push(root);
         if(root->left!=NULL){
             first_stack.Push(root->left);
-           
         }
         if(root->right!=NULL){
             first_stack.Push(root->right);
@@ -138,39 +136,36 @@ Result Manager::SEARCH(Database_BST* BST_list, string word){
         queue_list.Push(root);
     }
     int word_size = word.size();
+    cout<<"======SEARCH============"<<endl;
     while(1){
         if(queue_list.Isempty()==true){break;}
         Database_BST_Node* currNode = queue_list.Pop();
         int currNode_name_size = currNode->name.size();
-        int o[CHECK];
-        for(int i = 0; i<CHECK;i++){
+        int o[256];
+        for(int i = 0; i<256;i++){
             o[i] = -1;
         }
-        for(int i = 0; i < currNode_name_size;i++){
+        for(int i = 0; i < word_size;i++){
             o[(int) word[i]]=i;
         }
         int s = 0;
-
-        while(s<=(word_size-currNode_name_size))
+        
+        while(s<=(currNode_name_size- word_size))
         {
-            int j = currNode_name_size -1;
+            int j = word_size -1;
             while(j>=0 && word[j] == currNode->name[s + j])
             j--;
 
             if(j<0){
                 cout<<"\""<<currNode->name<<"\" /"<<currNode->num<<endl;
+                break;
             }
             else
             s += max(1, j - o[currNode->name[s+j]]);
         }
 
-    }
-
-
-    if(result != Success){
-        return SearchError;
-    }
-    return Success;
+    }  
+   // return Success;
 
 }
 

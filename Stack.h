@@ -11,20 +11,18 @@ template <class T>
 class Stack
 {
 private:
-   int count_num = 0;//count list number
-   T *list = new T[300]; 
+   int count_num = -1;//count list number
+   T *list; 
 public:
-   Stack(){}
-   ~Stack(){delete list;}
+    Stack() { list = new T[300]; }
 
    T Pop(){
-      if(count_num==-1){return NULL;}
+      if(count_num<0){return NULL;}
       return list[count_num--];
    }
 
    void Push(T& Node){
-      list[count_num] = Node;
-      count_num++;
+      list[++count_num] = Node;
    }
 
    bool Isempty(){
