@@ -8,76 +8,27 @@
 #endif
 
 template <class T>
-class Stack_Node
-{
-public:
-    T Data;
-    StackNode* next = NULL;
-    StackNode* prev = NULL;
-    StackNode(T data) : Data(data), next(NULL), prev(NULL) {};
-};
-template <class T>
-
-
 class Stack
 {
 private:
-   StackNode<T>* top;// top of stack
-   StackNode<T>* bottom; // bottom of stack
+   int count_num = 0;//count list number
+   T *list = new T[300]; 
 public:
-   Stack(): top(NULL), bottom(NULL) {};
+   Stack(){}
+   ~Stack(){delete list;}
 
-   bool isEmpty() // if Stack is empty, return true
-   {
-      return bottom == nullptr ? true : false;
-   };
-   T Top()//                            
-   {
-      return bottom->Data;
-   };
-   void Push(T data){
-      StackNode<T>* newNode = new StackNode<T>;
-      newNode->Data = data;
-
-      if (top == NULL) {
-         top = newNode;
-         bottom = newNode;
-      }
-      else {
-         bottom->next = newNode;
-         newNode->prev = bottom;
-         bottom = bottom->next;
-      }
-   };
-   T Pop()
-   {
-      if (isEmpty()) //      stack            
-      {
-         return NULL;
-      }
-      else
-      {
-         StackNode<T>* curr = bottom;
-         T data = curr->Data;
-
-         if (top == bottom)// Just one data in stack
-         {
-            bottom = nullptr;
-            delete top;
-            top = nullptr;
-         }
-         else// more than two data in stack
-         {
-            data = bottom->Data;
-            StackNode<T>* popNode = bottom;
-            bottom = bottom->prev;
-            delete popNode;
-         }
-         return data;
-      }
+   T Pop(){
+      if(count_num==-1){return NULL;}
+      return list[count_num--];
    }
-   
+
+   void Push(T& Node){
+      list[count_num] = Node;
+      count_num++;
+   }
+
+   bool Isempty(){
+      return count_num < 0 ? true : false;
+   }
 };
-template class Stack<Database_BST_Node>;
-template class Stack<unsigned char>;
 #endif

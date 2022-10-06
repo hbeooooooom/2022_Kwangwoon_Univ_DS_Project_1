@@ -1,7 +1,6 @@
 #pragma once
 #include<iostream>
 #include<cstring>
-#include<stack>
 using namespace std;
 
 class Database_BST_Node

@@ -1,10 +1,5 @@
-#ifndef QUEUE_H
-#define QUEUE_H
 #include"ImageNode.h"
 #include"Result.h"
-#ifndef NULL
-#define NULL    0
-#endif
 
 class Loaded_List{
     private:
@@ -23,4 +18,3 @@ class Loaded_List{
     void delete_node();
     void printnode();
 };
-#endif

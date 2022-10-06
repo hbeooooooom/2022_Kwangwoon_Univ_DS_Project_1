@@ -3,7 +3,7 @@
 #include "Stack.h"
 #include "Queue.h"
 class Database_BST{
-    private:
+    
     Database_BST_Node* root=NULL;
     public:
         Result make_BST(string name, string filename,int num);
@@ -11,6 +11,7 @@ class Database_BST{
         Result inorder(Database_BST_Node* node);
         void fine_delete_treenode();
         void delete_treenode();
-        Result postorder();
+        Database_BST_Node* getroot();
+        
     
 };

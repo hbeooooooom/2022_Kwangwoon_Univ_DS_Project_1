@@ -1,7 +1,7 @@
-#include"BinarySearchTree.h"
+#include "BinarySearchTree.h"
 
-Result postorder(Database_BST_Node*queue_list){
-    
+Database_BST_Node* Database_BST::getroot(){
+    return root;
 }
 
 

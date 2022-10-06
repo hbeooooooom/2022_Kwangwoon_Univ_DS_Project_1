@@ -162,6 +162,7 @@ void Loaded_List::make_list(string name, string filename,int num){
 void Loaded_List::printnode(){
     Loaded_List_Node* currNode=head;
     Loaded_List_Node* temp=head;
+    
     while(1){
         if(currNode==NULL){
             if(temp->down==NULL){

@@ -1,5 +1,6 @@
 #pragma warning(disable : 4996)
 #include "Manager.h"
+#define CHECK 256
 Manager::~Manager()
 {
     if (fin.is_open())
@@ -94,33 +95,77 @@ void Manager::Run(const char *filepath)
         else if(strcmp(command,"SEARCH")==0){
             command =strtok(NULL,"\"");
             string word = command;
-            
+            cout<<word<<endl;
             result = SEARCH(BST_list,word);
-            if(result==Success){
-                cout<<"=======MOVE======="<<endl;
-                cout<<"SUCCESS"<<endl;
-            }
-            else{
-                PrintError(result);
-            }
+            
             cout<<"=================="<<endl;
         }
         else if(strcmp(command,"SELECT")==0){
             command = strtok(NULL, " ");
             string num=command;
             int int_num=atoi(num.c_str());
-            result = SELECT(int_num);
+           // result = SELECT(int_num);
         }
     }
-    //print(list);
+    print(list);
 }
 
 Result Manager::SEARCH(Database_BST* BST_list, string word){
     Result result;
-    stack<Database_BST_Node> first_stack;
-    stack<Database_BST_Node> output_stack;
-    queue<Database_BST_Node> queue_list;
-    result= BST_list->postorder(word);
+    Stack<Database_BST_Node*> first_stack;
+    Stack<Database_BST_Node*> output_stack;
+    Queue<Database_BST_Node*> queue_list;
+   
+    Database_BST_Node *root= BST_list->getroot();
+    first_stack.Push(root);
+    while(1){
+        if(first_stack.Isempty()==true){break;}
+        root = first_stack.Pop();
+        output_stack.Push(root);
+        if(root->left!=NULL){
+            first_stack.Push(root->left);
+           
+        }
+        if(root->right!=NULL){
+            first_stack.Push(root->right);
+            
+        }
+    }
+   
+    while(1){
+        if(output_stack.Isempty()==true){break;}
+        root = output_stack.Pop();
+        queue_list.Push(root);
+    }
+    int word_size = word.size();
+    while(1){
+        if(queue_list.Isempty()==true){break;}
+        Database_BST_Node* currNode = queue_list.Pop();
+        int currNode_name_size = currNode->name.size();
+        int o[CHECK];
+        for(int i = 0; i<CHECK;i++){
+            o[i] = -1;
+        }
+        for(int i = 0; i < currNode_name_size;i++){
+            o[(int) word[i]]=i;
+        }
+        int s = 0;
+
+        while(s<=(word_size-currNode_name_size))
+        {
+            int j = currNode_name_size -1;
+            while(j>=0 && word[j] == currNode->name[s + j])
+            j--;
+
+            if(j<0){
+                cout<<"\""<<currNode->name<<"\" /"<<currNode->num<<endl;
+            }
+            else
+            s += max(1, j - o[currNode->name[s+j]]);
+        }
+
+    }
+
 
     if(result != Success){
         return SearchError;
@@ -129,13 +174,11 @@ Result Manager::SEARCH(Database_BST* BST_list, string word){
 
 }
 
-Result Manager::SELECT(int num){
-
-}
 
 Result Manager::PRINT(Database_BST* BST_list){
     Result result;
     result = BST_list->print_bst(BST_list);
+    cout<<"=========================="<<endl;
     return result;
 }
 
