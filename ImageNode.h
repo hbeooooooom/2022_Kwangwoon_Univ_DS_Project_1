@@ -7,7 +7,7 @@ using namespace std;
 class Loaded_List_Node
 {
 public:
-    string num; // files number
+    int num; // files number
     string name; // files name
     string filename;
     Loaded_List_Node* next = NULL;

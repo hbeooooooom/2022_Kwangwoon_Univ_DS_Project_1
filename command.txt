@@ -6,3 +6,4 @@ MODIFY new_files "three peppers are big" 444444
 MOVE
 PRINT
 LOAD
+ADD new_files new_filesnumbers.csv

@@ -1,5 +1,9 @@
 #include"BinarySearchTree.h"
 
+Result postorder(Database_BST_Node*queue_list){
+    
+}
+
 
 void Database_BST::delete_treenode(){
     Database_BST_Node* currNode = root;
@@ -46,7 +50,7 @@ Result Database_BST::inorder(Database_BST_Node* root){
         inorder(root->right);
     }
 }
-Result Database_BST::make_BST(string name, string filename,string num){
+Result Database_BST::make_BST(string name, string filename,int num){
     Database_BST_Node* currNode = root;
     Database_BST_Node* up;
     Database_BST_Node* newNode = new Database_BST_Node;
@@ -85,3 +89,4 @@ Result Database_BST::make_BST(string name, string filename,string num){
         }
     }
 }
+

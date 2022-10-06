@@ -17,6 +17,7 @@ void Manager::Run(const char *filepath)
     }
     char cmd[100];
     Loaded_List *list= new Loaded_List;
+    Loaded_List_Node *queue_list; 
     Database_BST *BST_list = new Database_BST;
     while (!fin.eof())
     {
@@ -56,14 +57,15 @@ void Manager::Run(const char *filepath)
            
         }
         else if(strcmp(command,"MODIFY")==0){
-            
+            char* change_num;
             command= strtok(NULL," ");
             string dir=command;
             command=strtok(NULL, "\"");
             string img_name = command;
             command= strtok(NULL," ");
             string num = command;
-            result = MODIFY(filepath, list,dir,img_name,num);
+            int int_num=atoi(num.c_str());
+            result = MODIFY(filepath, list,dir,img_name,int_num);
             if(result == 0){
                 cout<<"=======MODIFY======="<<endl;
                 cout<<"SUCCESS"<<endl;
@@ -89,9 +91,46 @@ void Manager::Run(const char *filepath)
         else if(strcmp(command,"PRINT")==0){
             result = PRINT(BST_list);
         }
-        
+        else if(strcmp(command,"SEARCH")==0){
+            command =strtok(NULL,"\"");
+            string word = command;
+            
+            result = SEARCH(BST_list,word);
+            if(result==Success){
+                cout<<"=======MOVE======="<<endl;
+                cout<<"SUCCESS"<<endl;
+            }
+            else{
+                PrintError(result);
+            }
+            cout<<"=================="<<endl;
+        }
+        else if(strcmp(command,"SELECT")==0){
+            command = strtok(NULL, " ");
+            string num=command;
+            int int_num=atoi(num.c_str());
+            result = SELECT(int_num);
+        }
     }
-    print(list);
+    //print(list);
+}
+
+Result Manager::SEARCH(Database_BST* BST_list, string word){
+    Result result;
+    stack<Database_BST_Node> first_stack;
+    stack<Database_BST_Node> output_stack;
+    queue<Database_BST_Node> queue_list;
+    result= BST_list->postorder(word);
+
+    if(result != Success){
+        return SearchError;
+    }
+    return Success;
+
+}
+
+Result Manager::SELECT(int num){
+
 }
 
 Result Manager::PRINT(Database_BST* BST_list){
@@ -110,7 +149,8 @@ Result Manager::MOVE(const char*filepath, Loaded_List* Load_list, Database_BST* 
         tree_nodecount++;
         string name = Load_list->get_name();
         string filename = Load_list->get_filename();
-        string num = Load_list->get_num();
+        int num = Load_list->get_num();
+        
         if(tree_nodecount>=300){
            BST_list-> delete_treenode();
         }
@@ -123,14 +163,16 @@ Result Manager::MOVE(const char*filepath, Loaded_List* Load_list, Database_BST* 
     }
     string name = Load_list->get_name();
     string filename = Load_list->get_filename();
-    string num = Load_list->get_num();
+    int num = Load_list->get_num();
+    
+    
     BST_list->make_BST(name,filename,num);
 
     Load_list->delete_head();
     return Success;
 }
 
-Result Manager::MODIFY(const char*filepath, Loaded_List* Load_list,string filename,string name,string num ){
+Result Manager::MODIFY(const char*filepath, Loaded_List* Load_list,string filename,string name,int num ){
     result = Load_list->modify_list(name,filename,num);
     return result;
 }
@@ -149,15 +191,17 @@ Result Manager::ADD(const char* filepath,Loaded_List* Load_list,string dir,strin
         return AddError;
     }
     string num, name,temp;
+   
     while(!fread.eof()){
         
         getline(fread, num, ',');
+        int int_num=atoi(num.c_str());
         getline(fread, name, '.');
         getline(fread, temp, '\n'); 
         if(nodecount>=101){
             Load_list->pop_head();
         }
-        result = Load_list->add_list(name,dir,num);
+        result = Load_list->add_list(name,dir,int_num);
         if(result!=0){
             return result;
         }
@@ -167,12 +211,12 @@ Result Manager::ADD(const char* filepath,Loaded_List* Load_list,string dir,strin
     return(Success);
 }
 
-
-
 Result Manager::Load(const char *filepath, Loaded_List *Load_list)
 {
     string filename = "img_files";
     string num, name,temp;
+    char* change_num;
+    
     fread.open("./img_files/filesnumbers.csv", ios::in);
     if(fread.fail()){
         return LoadError;
@@ -182,11 +226,12 @@ Result Manager::Load(const char *filepath, Loaded_List *Load_list)
     {
     
         getline(fread, num, ',');
+        int int_num=atoi(num.c_str());
         getline(fread, name, '.');
         getline(fread, temp, '\n');
         if(nodecount>=101)
             Load_list->pop_head();
-        Load_list->make_list(name,filename,num);
+        Load_list->make_list(name,filename,int_num);
         
         nodecount++;
     }

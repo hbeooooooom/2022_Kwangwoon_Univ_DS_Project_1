@@ -1,4 +1,4 @@
-#include"Queue.h"
+#include"Imagelist.h"
 #include<iostream>
 using namespace std;
 
@@ -45,7 +45,7 @@ string Loaded_List::get_filename(){//head is already end node
 void Loaded_List::delete_head(){
     head=NULL;
 }
-string Loaded_List::get_num(){
+int Loaded_List::get_num(){
      Loaded_List_Node* currNode=head;
     while(1){
         if(currNode->down==NULL)
@@ -89,7 +89,7 @@ void Loaded_List::delete_node(){
     delete currNode;
 }
 
-Result Loaded_List::modify_list(string name,string filename,string num){
+Result Loaded_List::modify_list(string name,string filename,int num){
    Loaded_List_Node* currNode=head;
    Loaded_List_Node* temp;
    Loaded_List_Node* newNode = new Loaded_List_Node;
@@ -129,7 +129,7 @@ Result Loaded_List::modify_list(string name,string filename,string num){
 
 }
 
-void Loaded_List::make_list(string name, string filename,string num){
+void Loaded_List::make_list(string name, string filename,int num){
     
     Loaded_List_Node* currNode=head;
     Loaded_List_Node* newNode = new Loaded_List_Node;
@@ -176,7 +176,7 @@ void Loaded_List::printnode(){
     
 }
 
-Result Loaded_List::add_list(string name, string dir, string num){
+Result Loaded_List::add_list(string name, string dir, int num){
     Loaded_List_Node* currNode = head;
     Loaded_List_Node* newNode = new Loaded_List_Node;
 

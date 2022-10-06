@@ -6,8 +6,9 @@
 #include<cstdio>
 #include<cstring>
 #include"Result.h"
-#include"Queue.h"
+#include"Imagelist.h"
 #include"BinarySearchTree.h"
+#include<cstdlib>
 using namespace std;
 
 class Manager
@@ -26,8 +27,10 @@ public:
 private:
     Result Load(const char* filepath,Loaded_List* Load_list);
     Result ADD(const char* filepath,Loaded_List* Load_list,string dir,string path);
-    Result MODIFY(const char*filepath, Loaded_List* Load_list,string dir,string img_name,string num );
+    Result MODIFY(const char*filepath, Loaded_List* Load_list,string dir,string img_name,int num );
     Result MOVE(const char*filepath, Loaded_List* Load_list,Database_BST* BST_list,int nodecount);
     Result PRINT(Database_BST* BST_list);
+    Result SEARCH(Database_BST* BST_list, string word);
+    RESULT SELECT(int num);
     void print(Loaded_List* Load_list);
 };
