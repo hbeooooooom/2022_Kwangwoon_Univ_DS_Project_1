@@ -6,3 +6,5 @@ MODIFY new_files "three peppers are big" 444444
 MOVE
 PRINT
 SEARCH "man"
+SELECT 420
+EDIT -f

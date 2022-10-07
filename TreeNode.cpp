@@ -1,13 +1,33 @@
 #include "BinarySearchTree.h"
 
+void Database_BST::preorder(Database_BST_Node* node,int num){
+     if(node==NULL)
+    return;
+
+    if(node->num==num){
+        Select_node = node;
+        return;
+    }
+        preorder(node->left,num);
+        preorder( node->right,num);
+}
+Result Database_BST::select_bst(Database_BST* bst_list, int num){
+    if(root!=NULL){
+        preorder(root,num); 
+       if(Select_node == NULL){
+        return SelectError;
+       }
+       else Success;
+    }
+    else
+        return SelectError;;
+}
 Database_BST_Node* Database_BST::getroot(){
     return root;
 }
-
-
 void Database_BST::delete_treenode(){
     Database_BST_Node* currNode = root;
-    Database_BST_Node* upNode;
+    Database_BST_Node* upNode=NULL;
     while(1){
         if(currNode->left==NULL)
         {
@@ -30,9 +50,7 @@ void Database_BST::delete_treenode(){
     }
 }
 
-Result Database_BST::print_bst(Database_BST* bst_list){
-    Result result;
-    
+Result Database_BST::print_bst(Database_BST* bst_list){    
     if(root!=NULL){
         cout<<"========PRINT===================="<<endl;
         inorder(root);
@@ -42,8 +60,7 @@ Result Database_BST::print_bst(Database_BST* bst_list){
         return PrintError;
     }
 }
-
-Result Database_BST::inorder(Database_BST_Node* root){
+void Database_BST::inorder(Database_BST_Node* root){
     if(root!=NULL){
         inorder(root->left);
         cout<<root->dir<<" / \""<<root->name<<"\" / "<<root->num<<endl;
@@ -52,7 +69,7 @@ Result Database_BST::inorder(Database_BST_Node* root){
 }
 Result Database_BST::make_BST(string name, string filename,int num){
     Database_BST_Node* currNode = root;
-    Database_BST_Node* up;
+    Database_BST_Node* up=NULL;
     Database_BST_Node* newNode = new Database_BST_Node;
 
     newNode->dir=filename;
@@ -89,4 +106,3 @@ Result Database_BST::make_BST(string name, string filename,int num){
         }
     }
 }
-

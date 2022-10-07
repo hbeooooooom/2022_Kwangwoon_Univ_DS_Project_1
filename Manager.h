@@ -33,6 +33,6 @@ private:
     Result MOVE(const char*filepath, Loaded_List* Load_list,Database_BST* BST_list,int nodecount);
     Result PRINT(Database_BST* BST_list);
     Result SEARCH(Database_BST* BST_list, string word);
-    //RESULT SELECT(int num);
-    void print(Loaded_List* Load_list);
+    Result SELECT(Database_BST* BST_list, int num);
+    Result EDIT(Database_BST* BST_list,string cmd, int num);
 };
