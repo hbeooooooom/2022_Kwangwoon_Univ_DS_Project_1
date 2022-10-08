@@ -30,6 +30,9 @@ SUCCESS
 =======MODIFY=======
 SUCCESS
 ==================
+==========ERROR=========
+300
+==================
 =======MOVE=======
 SUCCESS
 ==================
@@ -82,6 +85,29 @@ new2_files / "hgfjd" / 1923
 img_files / "asdfthe man is gorgeous" / 99999
 new_files / "three peppers are big" / 444444
 ==========================
+======SEARCH============
+"asdfthe woman is wearing a hat" /112
+"the woman is smiling" /200
+"the man takes a picture" /222
+"asdfThe woman is looking at the man " /553
+"the man is gorgeous" /523
+"The woman is looking at the man" /666
+"the woman is wearing a hat" /777
+"asdfthe man takes a picture" /853
+"asdfthe man is gorgeous" /99999
+==================
+===========SELECT============
+SUCCESS
+========================
+============EDIT=============
+SUCCESS
+===========================
+============EDIT=============
+SUCCESS
+===========================
+============EDIT=============
+SUCCESS
+===========================
 =======LOAD=======
 asdfthere are lots of people in the park/ 143
 asdfthe man is gorgeous/ 253

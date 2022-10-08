@@ -161,6 +161,7 @@ void Manager::Run(const char* filepath)
         else{
             PrintError(CommandError);//go to printError
             fout<<"======================="<<endl;
+            return;
         }
     }
 }
