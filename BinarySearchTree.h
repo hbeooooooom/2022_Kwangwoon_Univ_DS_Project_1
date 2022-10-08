@@ -17,5 +17,4 @@ class Database_BST{ //BST class
         Database_BST_Node* getroot();//return root address
         void preorder(Database_BST_Node* node,int num);//preorder function
         Result get_picture(string cmd, int num);//picture function
-        
 };
