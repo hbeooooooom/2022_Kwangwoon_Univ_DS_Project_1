@@ -1,0 +1,107 @@
+=======LOAD=======
+asdfthere are lots of people in the park/ 143
+asdfthe man is gorgeous/ 253
+river is under the bridge/ 174
+asdfthe man takes a picture/ 853
+asdfthree peppers are big/ 528
+the boat sails a big river/ 948
+asdfriver is under the bridge/ 152
+lena is famous person/ 420
+asdfthe boat sails a big river / 133
+asdfThe celebrity posed for the picture/ 522
+asdfthere are lots of ariplane/ 435
+asdfThe woman is looking at the man / 553
+asdflena is famous person/ 244
+asdfthe woman is wearing a hat/ 112
+asdfthere are cars and people/ 116
+asdfairplane fly on the mountain/ 752
+asdfthere are numbers and chinese characters/ 968
+asdffence is near trees/ 382
+===================
+=======ADD=======
+SUCCESS
+==================
+=======ADD=======
+SUCCESS
+==================
+=======MODIFY=======
+SUCCESS
+==================
+=======MODIFY=======
+SUCCESS
+==================
+=======MOVE=======
+SUCCESS
+==================
+========PRINT====================
+new_files / "there are lots of people in the park" / 110
+img_files / "asdfthe woman is wearing a hat" / 112
+img_files / "asdfthere are cars and people" / 116
+new_files / "fence is near trees" / 123
+new_files / "asdffe" / 132
+img_files / "asdfthe boat sails a big river " / 133
+img_files / "asdfthere are lots of people in the park" / 143
+img_files / "asdfriver is under the bridge" / 152
+img_files / "river is under the bridge" / 174
+new_files / "the woman is smiling" / 200
+new_files / "the man takes a picture" / 222
+img_files / "asdflena is famous person" / 244
+new_files / "the building is like a pyramid" / 333
+img_files / "asdffence is near trees" / 382
+new_files / "river is under the bridge" / 400
+img_files / "lena is famous person" / 420
+img_files / "asdfthere are lots of ariplane" / 435
+new_files / "The house has windows and doors" / 444
+new_files / "the boat sails a big river" / 500
+img_files / "asdfThe celebrity posed for the picture" / 522
+new_files / "the man is gorgeous" / 523
+img_files / "asdfthree peppers are big" / 528
+img_files / "asdfThe woman is looking at the man " / 553
+new_files / "The celebrity posed for the picture" / 555
+new_files / "there are lots of ariplane" / 600
+new_files / "The woman is looking at the man" / 666
+new_files / "lena is famous person" / 700
+img_files / "asdfairplane fly on the mountain" / 752
+new_files / "the woman is wearing a hat" / 777
+new_files / "there are cars and people" / 800
+img_files / "asdfthe man takes a picture" / 853
+new_files / "airplane fly on the mountain" / 888
+new_files / "there are numbers and chinese characters" / 900
+img_files / "the boat sails a big river" / 948
+img_files / "asdfthere are numbers and chinese characters" / 968
+new2_files / "jrtny" / 1079
+new2_files / "vsdax" / 1101
+new2_files / "hjfdg" / 1199
+new2_files / "thd" / 1286
+new2_files / "mfghr" / 1624
+new2_files / "cfnr" / 1671
+new2_files / "cvbty5rj" / 1709
+new2_files / "dfhgmn" / 1799
+new2_files / "edwe" / 1900
+new2_files / "hgfjd" / 1923
+img_files / "asdfthe man is gorgeous" / 99999
+new_files / "three peppers are big" / 444444
+==========================
+=======LOAD=======
+asdfthere are lots of people in the park/ 143
+asdfthe man is gorgeous/ 253
+river is under the bridge/ 174
+asdfthe man takes a picture/ 853
+asdfthree peppers are big/ 528
+the boat sails a big river/ 948
+asdfriver is under the bridge/ 152
+lena is famous person/ 420
+asdfthe boat sails a big river / 133
+asdfThe celebrity posed for the picture/ 522
+asdfthere are lots of ariplane/ 435
+asdfThe woman is looking at the man / 553
+asdflena is famous person/ 244
+asdfthe woman is wearing a hat/ 112
+asdfthere are cars and people/ 116
+asdfairplane fly on the mountain/ 752
+asdfthere are numbers and chinese characters/ 968
+asdffence is near trees/ 382
+===================
+======EXIT======
+SUCCESS
+================

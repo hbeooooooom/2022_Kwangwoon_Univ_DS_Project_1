@@ -13,7 +13,7 @@ void Manager::Run(const char* filepath)
 {
     fout.open(RESULT_LOG_PATH);
     fout.close();
-    fout.open(RESULT_LOG_PATH);
+    fout.open(RESULT_LOG_PATH,ios::out);
     fin.open(filepath);//open command txt
     if (!fin)
     {
@@ -91,7 +91,6 @@ void Manager::Run(const char* filepath)
 
         }
         else if (strcmp(command, "PRINT") == 0) {//if command PRINT
-            
             result = PRINT(BST_list);//go to PRINT function
             
         }

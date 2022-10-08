@@ -43,8 +43,6 @@ void Database_BST::delete_treenode(){//if bst node > 300 delete smallest node
 Result Database_BST::print_bst(Database_BST* bst_list){//print bst
    
     if(root!=NULL){
-        
-     
         inorder(root);//go to inorder function
         return Success;
     }
