@@ -7,56 +7,84 @@
 #define NULL    0
 #endif
 template <class Q>
-class Queue
+class Queue//search queue
 {
 private:
    int count_num = 0;
    int output_num = 0;
-   Q * list = new Q[300];
+   Q * list = new Q[300];//bst max size 300
 public:
    ~Queue(){
-      delete list;
+      delete[] list;
    }
    Q Pop(){
-      if(output_num >count_num){return NULL;}
-      return list[output_num++];
+      if(output_num >count_num){return NULL;}//if queue is empty
+      return list[output_num++];//return queue
    }
 
    void Push(Q& Node){
-      list[count_num]= Node;
-      count_num++;
+      list[count_num]= Node;//push list into node
+      count_num++;//count node++
       return;
    }
 
    bool Isempty(){
-      return output_num >= count_num ? true : false;
+      return output_num >= count_num ? true : false;//output num same count num is empty
    }
    
 };
-template <class Q2>
-class Queue2
-{
+template <class Q>
+class Img_Queue_node{//EDIT queue node
+   public:
+   Img_Queue_node<Q>* next = NULL;
+   Img_Queue_node<Q>* prev = NULL;
+   Q data;  
+};
+template<class Q>
+class IMG_Queue{//EDIT queue list
    private:
-   int size=NULL;
-   int count_num = 0;
-   int output_num = 0;
-   int count_num=-1;
-   T2* Node;
-public:
-   Stack2(){};
-   Stack2(int a, int b){
-      Node = new T2[a*b];
-      size=a*b;
-      }
-   void Push(T2& Node11){
-      Node[++count_num] = Node11;
-   }
-   T2 Pop(){
-      if(count_num<0){return 0;}
-      return Node[count_num--];
-   }
+   Img_Queue_node<Q>* head=NULL;
+   Img_Queue_node<Q>* tail=NULL;
+   
+   public:
    bool Isempty(){
-      return count_num < 0 ? true : false;
+      return head->next != NULL ? true : false;//queue empty check
    }
+   void Push(Q node){
+      Img_Queue_node<Q>* newNode = new Img_Queue_node<Q>;
+      newNode->data=node;
+
+      if(head==NULL){
+         head = newNode;
+         tail = newNode;
+      }
+      else if(tail!=NULL){//push data
+         tail->next=newNode;//data into tail next
+         tail = tail->next;//and tail is newNode
+      }
+   }
+   Q Pop(){
+      if(Isempty()==false){//if queue is empty
+         return NULL;
+      }
+      else{
+         Q data = head->data;
+         if(head==tail){//if empty queue delete memory
+            head = NULL;
+            delete tail;
+            tail = NULL;
+         }
+         
+         if(data >=255){//if RGB >255 max RGB is 255
+            data=255;
+         }
+         Img_Queue_node<Q>* temp=head;
+         head = head->next;
+         delete temp;//delete pop node
+         return data;//return data
+      }
+      
+   }
+
 };
 #endif

@@ -3,80 +3,73 @@
 
 Result Database_BST::get_picture(string cmd,int nums)
 {
-    int width = 512, height = 512;
+    int width = 256, height = 256;
 
     FILE* input_file, * output_file;
 
-    unsigned char input_data[512][512];
-    unsigned char output_data[512][512];
-    cout<<Select_node->name<<endl;
+    unsigned char input_data[256][256];
+    unsigned char output_data[256][256];
     string path,newpath;
-    path = "./"+Select_node->dir+"/"+Select_node->name+".raw";
-    newpath = "./Result/"+Select_node->name+"flipped.raw";
+    path = "./"+Select_node->dir+"/"+Select_node->name+".RAW";//make raw file path
     const char* path_char = path.c_str();
-    const char* new_path = newpath.c_str();
-    input_file = fopen(path_char, "rb");
-    cout<<"aa"<<endl;
+    input_file = fopen(path_char, "rb");//open raw file
     if (input_file == NULL)
     {
-        printf("File not found!!\n");
         return EditError;
     }
-
     fread(input_data, sizeof(unsigned char), width * height, input_file);
-    if(cmd=="-f"){
-    Stack2<unsigned char> pic_stack(width,height);
+    if(cmd=="-f"){// if cmd -f
+    newpath = "./Result/"+Select_node->name+"_flipped.RAW";//after make file name
+    const char* new_path = newpath.c_str();
+    Edit_Stack<unsigned char> pic_stack;//make stack
     for (int i = 0; i < height; i++)
         for (int j = 0; j < width; j++)
-            pic_stack.Push(input_data[i][j]);
-            
-
+            pic_stack.Push(input_data[i][j]);//push data into stack
     for (int i = 0; i < height; i++)
         for (int j = 0; j < width; j++)
-            output_data[i][j] = pic_stack.Pop();
+            output_data[i][j] = pic_stack.Pop(); //pop data into output data
 
     output_file = fopen(new_path, "wb");
-    fwrite(output_data, sizeof(unsigned char), width * height, output_file);
-    }
-    else if(cmd=="-l"){
-        
-    }
-
+    fwrite(output_data, sizeof(unsigned char), width * height, output_file);//make raw file
     fclose(input_file);
     fclose(output_file);
-}
+    return Success;
+    }
+    else if(cmd=="-l"){//if command -l
+        newpath = "./Result/"+Select_node->name+"_adjusted.RAW";
+        const char* new_path = newpath.c_str();
+        IMG_Queue<unsigned char> pic_queue;//make queue
+        for (int i = 0; i < height; i++)
+            for (int j = 0; j < width; j++)
+                pic_queue.Push(input_data[i][j]);//push data into queue
 
-//void main()
-//{
-//	FILE* fp_In = nullptr;
-//	FILE* fp_Out = nullptr;
-//
-//	errno_t err_In = fopen_s(&fp_In, "./snoopy.raw", "rb");
-//	if (0 == err_In)
-//	{
-//		//////////////////////////////////////////////////////////////////////
-//		errno_t err_Out = fopen_s(&fp_Out, "./snoopy_change.raw", "wb");
-//		if (0 == err_Out)
-//		{
-//			char	ch = 0;
-//			// ���� ������ ������ ����
-//
-//			while (true)
-//			{
-//				int iCnt = fread(&ch, sizeof(char), 1, fp_In);
-//				//ch += 10;
-//				if (1 > iCnt)
-//					break;
-//				fwrite(&ch, sizeof(char), 1, fp_Out);
-//			}
-//
-//
-//			fclose(fp_Out);
-//		}
-//
-//		//////////////////////////////////////////////////////////////////////
-//
-//		fclose(fp_In);
-//	}
-//	
-//}
+        for (int i = 0; i < height; i++)
+            for (int j = 0; j < width; j++)
+                output_data[i][j] = nums + pic_queue.Pop();//pop data into ouput data
+
+        output_file = fopen(new_path, "wb");
+        fwrite(output_data, sizeof(unsigned char), width * height, output_file);//make raw file
+        fclose(input_file);
+        fclose(output_file);
+        return Success;
+    }
+    else if(cmd=="-r"){
+        unsigned char output_data[128][128];
+        newpath = "./Result/"+Select_node->name+"_resized.RAW";
+        const char* new_path = newpath.c_str();
+        IMG_Queue<unsigned char> pic_queue;//make queue
+        for (int i = 0; i < height; i+=2)
+            for (int j = 0; j < width; j+=2)
+                pic_queue.Push((input_data[i][j]+input_data[i][j+1]+input_data[i+1][j]+input_data[i+1][j+1])/4);
+                //push data into queue Add adjacent 4 spaces and divide by 4
+            
+        for (int i = 0; i < height/2; i++)
+            for (int j = 0; j < width/2; j++)
+                output_data[i][j] = pic_queue.Pop();//pop data into output data
+        output_file = fopen(new_path, "wb");
+        fwrite(output_data, sizeof(unsigned char), width * height, output_file);
+        fclose(input_file);
+        fclose(output_file);
+        return Success;
+    }
+}

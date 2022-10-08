@@ -1,10 +1,6 @@
 LOAD
 ADD new_files new_filesnumbers.csv
-ADD new2_files new2_filesnumbers.csv
-MODIFY img_files "asdfthe man is gorgeous" 99999
-MODIFY new_files "three peppers are big" 444444
 MOVE
 PRINT
-SEARCH "man"
-SELECT 420
-EDIT -f
+LOAD
+EXIT
